@@ -1,16 +1,16 @@
-# Case Closed - HybridQuant Agent
+# Case Closed - ImGoatedAndIKIt Agent
 
-## 🎯 Quick Start
+## Quick Start
 
 **For submission, see the `submission/` folder which contains all required files.**
 
 The main agent code is in `submission/agent.py` - this is what will be evaluated.
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 CRACKED-CASE/
-├── submission/          # ✅ SUBMISSION FOLDER - All required files here
+├── submission/          # SUBMISSION FOLDER - All required files here
 │   ├── agent.py         # Main agent (REQUIRED)
 │   ├── requirements.txt # Dependencies (REQUIRED)
 │   ├── Dockerfile       # Container config (REQUIRED)
@@ -31,27 +31,27 @@ CRACKED-CASE/
 └── README.md           # This file
 ```
 
-## 🚀 Submission
+## Submission
 
 **Submit the `submission/` folder to Devpost/GitHub.**
 
 All required files are in `submission/`:
-- ✅ `agent.py` - HybridQuant agent
-- ✅ `requirements.txt` - All dependencies
-- ✅ `Dockerfile` - Container configuration
-- ✅ `case_closed_game.py` - Game logic
-- ✅ All supporting modules
+- `agent.py` - ImGoatedAndIKIt agent
+- `requirements.txt` - All dependencies
+- `Dockerfile` - Container configuration
+- `case_closed_game.py` - Game logic
+- All supporting modules
 
-## 📋 Key Restrictions
+## Key Restrictions
 
-- ✅ **CPU-only PyTorch**: Uses `torch` (CPU version) - no CUDA
-- ✅ **5GB Docker Limit**: Minimal dependencies
-- ✅ **No Tensorflow/JAX**: Only PyTorch for opponent modeling
-- ✅ **Decision Time**: Optimized for <50ms per move
+- **CPU-only PyTorch**: Uses `torch` (CPU version) - no CUDA
+- **5GB Docker Limit**: Minimal dependencies
+- **No Tensorflow/JAX**: Only PyTorch for opponent modeling
+- **Decision Time**: Optimized for <50ms per move
 
-## 🎮 Agent: HybridQuant
+## Agent: ImGoatedAndIKIt
 
-**HybridQuant** is a sophisticated heuristic-based agent featuring:
+**ImGoatedAndIKIt** is a heuristic-based agent featuring:
 
 - **Opponent Modeling**: Online softmax regression learns patterns in real-time
 - **Adaptive Strategy Selection**: Detects game regimes and switches strategies
@@ -61,12 +61,12 @@ All required files are in `submission/`:
 
 ### Performance
 
-- **Win Rate vs FloodFill**: 100% (tested)
-- **Win Rate vs Voronoi**: 100% (tested)
-- **Win Rate vs Beam**: 100% (tested)
+- **Win Rate vs FloodFill**: 100% (tested on 500 games)
+- **Win Rate vs Voronoi**: 100% (tested on 500 games)
+- **Win Rate vs Beam**: 100% (tested on 500 games)
 - **Self-Play**: Stable, no crashes
 
-## 📖 Detailed Documentation
+## Detailed Documentation
 
 See `submission/README.md` for:
 - Complete agent architecture
@@ -75,7 +75,7 @@ See `submission/README.md` for:
 - Testing results
 - Docker build instructions
 
-## 🧪 Local Testing
+## Local Testing
 
 ```bash
 # Install dependencies
@@ -86,7 +86,7 @@ cd submission
 python agent.py
 ```
 
-## 🐳 Docker Build
+## Docker Build
 
 ```bash
 cd submission
@@ -94,10 +94,10 @@ docker build -t case-closed-agent .
 docker run -p 5008:8080 case-closed-agent
 ```
 
-## 📧 Contact
+## Contact
 
 **Participant**: Maira(bies) Athar  
-**Agent Name**: HybridQuant
+**Agent Name**: ImGoatedAndIKIt
 
 ---
 
