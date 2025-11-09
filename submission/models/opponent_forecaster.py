@@ -8,7 +8,8 @@ import numpy as np
 from typing import List, Tuple, Optional
 from collections import deque
 from agent_utils import legal_moves, get_current_direction, torus_wrap, HEIGHT, WIDTH
-from logic.evaluation import bfs_area, voronoi_diff
+from logic.evaluation import bfs_area
+from evaluation import voronoi_score  # Keep old voronoi for now
 
 
 class SoftmaxOppModel:
@@ -109,7 +110,7 @@ class SoftmaxOppModel:
                 test_pos = torus_wrap((opp_pos[0] + dx, opp_pos[1] + dy))
                 test_trail = list(opp_trail) + [test_pos]
                 try:
-                    voronoi = voronoi_diff(grid, test_pos, my_pos)
+                    voronoi = voronoi_score(grid, test_pos, my_pos, test_trail, my_trail)
                     local_voronoi.append(voronoi / 100.0)  # Normalize
                 except:
                     local_voronoi.append(0.0)
@@ -352,7 +353,7 @@ class EnsembleOppModel:
         for move in safe_moves:
             from agent_utils import apply_move
             new_grid, new_pos, new_trail = apply_move(grid, opp_pos, move, opp_trail, False)
-            voronoi = voronoi_diff(new_grid, new_pos, my_pos)
+            voronoi = voronoi_score(new_grid, new_pos, my_pos, new_trail, my_trail)
             scores.append((voronoi, move))
         
         if scores:
@@ -380,8 +381,8 @@ class EnsembleOppModel:
             from agent_utils import apply_move
             new_grid, new_pos, new_trail = apply_move(grid, opp_pos, move, opp_trail, False)
             # Evaluate from our perspective (opponent wants to minimize our score)
-            from logic.evaluation import score_state
-            score = score_state(new_grid, my_pos, new_pos, my_trail, new_trail)
+            from evaluation import evaluate_position
+            score = evaluate_position(new_grid, my_pos, new_pos, my_trail, new_trail)
             scores.append((score, move))
         
         if scores:

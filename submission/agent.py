@@ -20,7 +20,7 @@ LAST_POSTED_STATE = {}
 game_lock = Lock()
  
 PARTICIPANT = "Maira(bies) Athar"
-AGENT_NAME = "ImGoatedAndIKIt"
+AGENT_NAME = "HybridQuant"
 
 # Global opponent model (persists across ticks)
 opponent_model = SoftmaxOppModel()

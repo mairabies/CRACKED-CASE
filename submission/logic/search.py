@@ -13,75 +13,7 @@ from agent_utils import (
     HEIGHT, WIDTH
 )
 from logic.evaluation import score_state
-
-
-def simulate_game_step(
-    grid: List[List[int]],
-    my_pos: Tuple[int, int],
-    opp_pos: Tuple[int, int],
-    my_move: str,
-    opp_move: str,
-    my_trail: List[Tuple[int, int]],
-    opp_trail: List[Tuple[int, int]],
-    my_boost: bool = False,
-    opp_boost: bool = False
-) -> Tuple[List[List[int]], Tuple[int, int], Tuple[int, int], List[Tuple[int, int]], List[Tuple[int, int]], bool, bool]:
-    """
-    Simulate one game step forward.
-    
-    Returns:
-        Tuple of (new_grid, new_my_pos, new_opp_pos, new_my_trail, new_opp_trail, my_alive, opp_alive)
-    """
-    # Apply my move
-    my_new_grid, my_new_pos, my_new_trail = apply_move(grid, my_pos, my_move, my_trail, my_boost)
-    
-    # Apply opponent move (on original grid to avoid double-counting)
-    opp_new_grid, opp_new_pos, opp_new_trail = apply_move(grid, opp_pos, opp_move, opp_trail, opp_boost)
-    
-    # Check collisions after both moves
-    my_alive = True
-    my_wrapped = torus_wrap(my_new_pos)
-    
-    # Check collision with my own trail (except current head)
-    if len(my_new_trail) > 1:
-        head_count = sum(1 for p in my_new_trail if torus_wrap(p) == my_wrapped)
-        if head_count > 1:
-            my_alive = False
-    
-    # Check collision with opponent's trail (including their new head)
-    if my_wrapped in opp_new_trail:
-        my_alive = False
-    
-    # Check opponent collisions
-    opp_alive = True
-    opp_wrapped = torus_wrap(opp_new_pos)
-    
-    # Check collision with opponent's own trail
-    if len(opp_new_trail) > 1:
-        head_count = sum(1 for p in opp_new_trail if torus_wrap(p) == opp_wrapped)
-        if head_count > 1:
-            opp_alive = False
-    
-    # Check collision with my trail (including my new head)
-    if opp_wrapped in my_new_trail:
-        opp_alive = False
-    
-    # Check head-on collision
-    if my_wrapped == opp_wrapped:
-        my_alive = False
-        opp_alive = False
-    
-    # Merge grids (both agents' moves)
-    merged_grid = [row[:] for row in grid]
-    AGENT = 1  # Agent cell value
-    for pos in my_new_trail:
-        wrapped = torus_wrap(pos)
-        merged_grid[wrapped[1]][wrapped[0]] = AGENT
-    for pos in opp_new_trail:
-        wrapped = torus_wrap(pos)
-        merged_grid[wrapped[1]][wrapped[0]] = AGENT
-    
-    return (merged_grid, my_new_pos, opp_new_pos, my_new_trail, opp_new_trail, my_alive, opp_alive)
+from search import simulate_game_step  # Import from original search.py
 
 
 def legal_moves_fast(grid: List[List[int]], pos: Tuple[int, int], current_dir: Optional[str], my_trail: List[Tuple[int, int]], opp_trail: List[Tuple[int, int]]) -> List[str]:
