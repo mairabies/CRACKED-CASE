@@ -31,7 +31,6 @@
 All dependencies are listed in `requirements.txt`:
 - Flask (web server)
 - numpy (numerical computations)
-- torch (CPU-only PyTorch for opponent modeling)
 
 ## Quick Start
 
@@ -101,13 +100,11 @@ The agent uses `SoftmaxOppModel` to learn opponent patterns:
 
 ## Key Restrictions
 
-- **CPU-only PyTorch**: Uses `torch` (CPU version) - no CUDA
-  - The base image includes CPU-only PyTorch
-  - No GPU builds (CUDA) - too large and slow
 - **5GB Docker Limit**: Minimal dependencies, no large ML libraries
-  - Only essential packages: Flask, numpy, torch (CPU)
-- **No Tensorflow/JAX**: Only PyTorch for opponent modeling
-  - Other large ML frameworks are disallowed
+  - Only essential packages: Flask, numpy
+- **No Tensorflow/JAX/PyTorch**: Custom opponent modeling using only NumPy
+  - SoftmaxOppModel is a pure NumPy implementation
+  - No large ML frameworks used
 - **Decision Time**: Optimized for <50ms per move
   - Efficient algorithms with caching where possible
 
