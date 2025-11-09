@@ -1,6 +1,2 @@
 Flask
-requests
 numpy
-torch
-pandas
-httpx
