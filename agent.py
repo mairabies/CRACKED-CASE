@@ -141,19 +141,9 @@ def send_move():
         grid, my_pos, opp_pos, my_trail, opp_trail, my_boosts, opp_boosts, turn_count
     )
     
-    # Score function with defensive weights (prioritize safety and area control)
-    # Adjust weights based on game phase
-    opp_distance = manhattan(my_pos, opp_pos)
-    if opp_distance <= 3:
-        # Close combat: prioritize safety and mobility
-        def score_fn(g, m_pos, o_pos, m_trail, o_trail):
-            return score_state(g, m_pos, o_pos, m_trail, o_trail, 
-                             alpha=1.2, beta=0.6, gamma=0.8, delta=0.6, kappa=0.5)
-    else:
-        # Normal play: balanced weights
-        def score_fn(g, m_pos, o_pos, m_trail, o_trail):
-            return score_state(g, m_pos, o_pos, m_trail, o_trail, 
-                             alpha=1.0, beta=0.8, gamma=0.6, delta=0.4)
+    # Score function with default weights
+    def score_fn(g, m_pos, o_pos, m_trail, o_trail):
+        return score_state(g, m_pos, o_pos, m_trail, o_trail, alpha=1.0, beta=0.8, gamma=0.6, delta=0.4)
     
     # Get move using hybrid strategy
     move = choose_move_hybrid(
